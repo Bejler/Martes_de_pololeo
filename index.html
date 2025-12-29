@@ -1,53 +1,82 @@
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <audio id="tudum-sound" src="https://www.myinstants.com/media/sounds/netflix-tudum.mp3"></audio>
 
 <div id="loading-screen" class="screen">
   <h1 class="netflix-logo">MARTES DE POLOLEO</h1>
+  <div class="loader-bar"></div>
 </div>
 
 <div id="profile-screen" class="screen hidden">
   <h1 class="profile-title">¿Quién recibirá regaloneo hoy?</h1>
   <div class="profile-card" onclick="showHome()">
-    <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" alt="Magda">
+    <div class="img-wrapper">
+      <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" alt="Magda">
+    </div>
     <p>Magda</p>
   </div>
 </div>
 
 <div id="home-screen" class="screen hidden">
-  <div class="slider">
+  <div class="slider-container">
+    <div class="slider-overlay"></div>
     <img src="https://i.postimg.cc/vTGxGwj5/Whats_App_Image_2025_12_29_at_12_06_34.jpg" class="slide active">
     <img src="https://i.postimg.cc/sx3G3C8p/Whats_App_Image_2025_12_29_at_12_06_35.jpg" class="slide">
     <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" class="slide">
   </div>
   
   <div class="content-overlay">
-    <h2 class="main-title">¿Lista para nuestro martes?</h2>
-    <div class="categories">
-      <div class="movie-card" onclick="openPlan('completo')">
-        <div class="badge">Película Premium</div>
-        <p class="card-title">Día Completo: Cachagua & Las cujas</p>
+    <p class="brand-top">✨ UNA PRODUCCIÓN DE TU POLOLO</p>
+    <h2 class="main-title">¿Qué capítulo viviremos hoy?</h2>
+    
+    <div class="movie-list">
+      <div class="card-pro" onclick="openPlan('completo')">
+        <div class="card-content">
+          <span class="top-tag">Tendencia Hoy</span>
+          <h3>Día Completo: Cachagua</h3>
+          <p>Sol, playa y la mejor compañía en Las Cujas.</p>
+        </div>
       </div>
-      <div class="movie-card" onclick="openPlan('manana')">
-        <div class="badge">Cortometraje</div>
-        <p class="card-title">Solo Mañana: Desayuno & Paseo</p>
+
+      <div class="card-pro" onclick="openPlan('manana')">
+        <div class="card-content">
+          <span class="top-tag">Más buscado</span>
+          <h3>Matiné: Desayuno & Paseo</h3>
+          <p>El inicio perfecto en las costas de Concón.</p>
+        </div>
       </div>
-      <div class="movie-card" onclick="openPlan('tarde')">
-        <div class="badge">Especial</div>
-        <p class="card-title">Solo Tarde: Sunset & Piscina</p>
+
+      <div class="card-pro" onclick="openPlan('tarde')">
+        <div class="card-content">
+          <span class="top-tag">Recomendado</span>
+          <h3>Especial: Sunset & Chill</h3>
+          <p>Piscina y atardecer. Relajo nivel premium.</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <div id="detail-modal" class="modal hidden">
+  <div class="modal-blur" onclick="closeModal()"></div>
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h1 id="plan-title"></h1>
-    <p id="plan-info" class="meta"></p>
-    <p id="plan-desc"></p>
-    <div id="interactive-section"></div>
-    <button class="btn-confirm" id="confirm-btn" onclick="confirmar()">REPRODUCIR (CONFIRMAR CITA)</button>
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="modal-body">
+      <h1 id="plan-title"></h1>
+      <div class="meta-row">
+        <span class="match">99% de Coincidencia</span>
+        <span class="year">2025</span>
+        <span class="rating">16+</span>
+        <span class="duration" id="plan-duration"></span>
+      </div>
+      <p id="plan-desc" class="description"></p>
+      
+      <div id="interactive-section"></div>
+      
+      <button class="btn-primary" id="confirm-btn" onclick="confirmar()">
+        <span class="btn-text">REPRODUCIR (CONFIRMAR)</span>
+      </button>
+    </div>
   </div>
 </div>
