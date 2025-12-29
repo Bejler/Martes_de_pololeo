@@ -1,13 +1,12 @@
-// 1. Manejo de Pantallas y Sonido
+// --- CONFIGURACIÓN DE PANTALLAS ---
 setTimeout(() => {
-  document.getElementById('loading-screen').classList.add('hidden');
+  document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('profile-screen').classList.remove('hidden');
 }, 2500);
 
 function showHome() {
-  // Reproducir sonido Tudum
   const sound = document.getElementById('tudum-sound');
-  sound.play().catch(() => console.log("Interacción requerida para audio"));
+  sound.play().catch(() => {}); // Fails silently if browser blocks it
 
   document.getElementById('profile-screen').classList.add('hidden');
   document.getElementById('home-screen').classList.remove('hidden');
@@ -21,81 +20,89 @@ function startSlider() {
     slides[current].classList.remove('active');
     current = (current + 1) % slides.length;
     slides[current].classList.add('active');
-  }, 4000);
+  }, 4500);
 }
 
-// 2. Lógica de los Planes
-let planActual = "";
+// --- LOGICA DE PLANES ---
+let planSeleccionado = "";
 
 function openPlan(tipo) {
   const modal = document.getElementById('detail-modal');
   const title = document.getElementById('plan-title');
   const desc = document.getElementById('plan-desc');
-  const info = document.getElementById('plan-info');
+  const duration = document.getElementById('plan-duration');
   const interactive = document.getElementById('interactive-section');
   
   modal.classList.remove('hidden');
   interactive.innerHTML = ""; 
-  planActual = tipo;
+  planSeleccionado = tipo;
 
   if(tipo === 'completo') {
     title.innerText = "Cachagua: Día de Película";
-    info.innerText = "98% de coincidencia | 2024 | Full Day";
-    desc.innerText = "Salida 10:30 AM. Paseo costero en Cachagua y sol en Las Cujas. ¿Cómo prefieres almorzar?";
+    duration.innerText = "Full Day";
+    desc.innerText = "Una jornada completa explorando Las Cujas. Playa, sol y desconexión total. ¿Dónde almorzamos?";
     interactive.innerHTML = `
-      <button class="options-btn" onclick="window.open('http://www.sieteolas.cl/')">🍴 Ver Restaurantes</button>
-      <button class="options-btn" onclick="confirmar('Picnic en Las Cujas')">🧺 Picnic en la arena</button>
+      <button class="option-pill" onclick="window.open('https://www.instagram.com/tiotomate/')">Tío Tomate Cachagua</button>
+      <button class="option-pill" onclick="window.open('https://www.instagram.com/sushiroccarolls/')">Rocca Rolls</button>
+      <button class="option-pill" onclick="selectSubPlan('Picnic en la playa')">Picnic Romántico</button>
     `;
   } else if(tipo === 'manana') {
-    title.innerText = "Matiné: Desayuno & Brisa";
-    info.innerText = "Especial | 4 Horas | Mañana";
-    desc.innerText = "Mañana de paseo por Concón. ¿A qué lugar te gustaría que te lleve a desayunar?";
+    title.innerText = "Matiné: Desayuno & Paseo";
+    duration.innerText = "4h 30m";
+    desc.innerText = "Empezamos el martes con la mejor energía en Concón. Escoge tu cafetería favorita:";
     interactive.innerHTML = `
-      <button class="options-btn" onclick="window.open('https://www.instagram.com/lemintcafeteria/')">☕ Ver Cafeterías</button>
-      <button class="options-btn" onclick="confirmar('Solo Paseo')">🌊 Solo caminar y conversar</button>
+      <button class="option-pill" onclick="window.open('https://www.instagram.com/balicoffeehouse.cl/')">Bali Coffee House</button>
+      <button class="option-pill" onclick="window.open('https://www.instagram.com/lemintcafeteria/')">Le Mint</button>
+      <button class="option-pill" onclick="selectSubPlan('Solo caminar')">Brisa Marina (Paseo)</button>
     `;
   } else if(tipo === 'tarde') {
     title.innerText = "Especial: Sunset & Chill";
-    info.innerText = "Romance | 6 Horas | Golden Hour";
-    desc.innerText = "Piscina, helados y empanaditas para ver el sunset más lindo del mundo.";
-    interactive.innerHTML = `<button class="options-btn" onclick="confirmar('Tarde de Sunset')">🌅 Confirmar Plan de Tarde</button>`;
+    duration.innerText = "5h 15m";
+    desc.innerText = "Atardecer dorado, piscina y snacks. Un plan diseñado para relajar el corazón.";
+    interactive.innerHTML = `<button class="option-pill" onclick="selectSubPlan('Tarde de Piscina')">🌅 Confirmar Tarde de Sunset</button>`;
   }
 }
 
-function closeModal() { document.getElementById('detail-modal').classList.add('hidden'); }
+function selectSubPlan(nombre) {
+  planSeleccionado = nombre;
+  confirmar();
+}
 
-// 3. Confirmación Pro con Carga y Confetti
-function confirmar(detalle = "") {
+function closeModal() {
+  document.getElementById('detail-modal').classList.add('hidden');
+}
+
+// --- CONFIRMACIÓN PRO ---
+function confirmar() {
   const btn = document.getElementById('confirm-btn');
-  const planTexto = detalle || planActual;
+  const originalHtml = btn.innerHTML;
   
-  btn.innerHTML = `<span class="spinner"></span> RESERVANDO...`;
+  // Efecto Loading en botón
+  btn.innerHTML = `<span class="spinner"></span> <span>RESERVANDO...</span>`;
   btn.style.pointerEvents = "none";
 
   setTimeout(() => {
-    // Confeti de Corazones
-    const duration = 3 * 1000;
+    // 1. Confeti de Corazones
+    const duration = 4 * 1000;
     const end = Date.now() + duration;
 
     (function frame() {
       confetti({
-        particleCount: 5,
-        angle: 60, spread: 55, origin: { x: 0 },
+        particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
         colors: ['#E50914', '#ffffff'], shapes: ['heart']
       });
       confetti({
-        particleCount: 5,
-        angle: 120, spread: 55, origin: { x: 1 },
+        particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
         colors: ['#E50914', '#ffffff'], shapes: ['heart']
       });
-
-      if (Date.now() < end) { requestAnimationFrame(frame); }
+      if (Date.now() < end) requestAnimationFrame(frame);
     }());
 
-    alert("❤️ ¡CITA CONFIRMADA! ❤️\n\nMagda, tu plan [" + planTexto + "] ha sido reservado.\n¡Prepárate para el mejor martes!");
+    // 2. Alerta Personalizada (Simulando Cita Confirmada)
+    alert("✨ CITA CONFIRMADA ✨\n\nMagda, tu elección ha sido registrada.\nPrepárate para un Martes de Pololeo inolvidable. ❤️");
     
     closeModal();
-    btn.innerHTML = "REPRODUCIR (CONFIRMAR CITA)";
+    btn.innerHTML = originalHtml;
     btn.style.pointerEvents = "auto";
   }, 2000);
 }
