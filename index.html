@@ -1,63 +1,55 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martes de Pololeo</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<audio id="tudum" src="https://www.myinstants.com/media/sounds/netflix-tudum.mp3"></audio>
 
-    <div id="loading-screen" class="screen">
-        <h1 class="netflix-logo">MARTES DE POLOLEO</h1>
+<div id="loading-screen" class="screen">
+  <h1 class="netflix-logo">MARTES DE POLOLEO</h1>
+</div>
+
+<div id="profile-screen" class="screen hidden">
+  <h1 class="profile-title">¿Quién recibirá regaloneo hoy?</h1>
+  <div class="profile-card" onclick="showHome()">
+    <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" alt="Magda">
+    <p>Magda</p>
+  </div>
+</div>
+
+<div id="home-screen" class="screen hidden">
+  <div class="slider">
+    <img src="https://i.postimg.cc/vTGxGwj5/Whats_App_Image_2025_12_29_at_12_06_34.jpg" class="slide active">
+    <img src="https://i.postimg.cc/sx3G3C8p/Whats_App_Image_2025_12_29_at_12_06_35.jpg" class="slide">
+    <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" class="slide">
+  </div>
+  
+  <div class="content-overlay">
+    <h2 class="main-title">¿Lista para nuestro martes?</h2>
+    <div class="categories">
+      <div class="movie-card fade-in" onclick="openPlan('completo')">
+        <div class="badge">TOP 1 EN CONCÓN</div>
+        <p class="card-title">Día Completo: Cachagua & Las Cuchas</p>
+      </div>
+      <div class="movie-card fade-in" onclick="openPlan('manana')">
+        <div class="badge">RECIÉN ESTRENADO</div>
+        <p class="card-title">Solo Mañana: Matiné</p>
+      </div>
+      <div class="movie-card fade-in" onclick="openPlan('tarde')">
+        <div class="badge">TENDENCIA</div>
+        <p class="card-title">Solo Tarde: Sunset</p>
+      </div>
     </div>
+  </div>
+</div>
 
-    <div id="profile-screen" class="screen hidden">
-        <h1 class="profile-title">¿Quién recibirá regaloneo hoy?</h1>
-        <div class="profile-card" onclick="showHome()">
-            <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" alt="Magda">
-            <p>Magda</p>
-        </div>
+<div id="detail-modal" class="modal hidden">
+  <div class="modal-content glass">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h1 id="plan-title"></h1>
+    <p id="plan-info" class="meta"></p>
+    <p id="plan-desc"></p>
+    <div id="interactive-section"></div>
+    
+    <div id="progress-container" class="hidden">
+      <div id="progress-bar"></div>
     </div>
-
-    <div id="home-screen" class="screen hidden">
-        <div class="slider">
-            <img src="https://i.postimg.cc/vTGxGwj5/Whats_App_Image_2025_12_29_at_12_06_34.jpg" class="slide active">
-            <img src="https://i.postimg.cc/sx3G3C8p/Whats_App_Image_2025_12_29_at_12_06_35.jpg" class="slide">
-            <img src="https://i.postimg.cc/QCjKjZPg/Whats_App_Image_2025_12_29_at_12_06_34(1).jpg" class="slide">
-        </div>
-        
-        <div class="content-overlay">
-            <h2 class="main-title">¿Lista para nuestro martes?</h2>
-            <div class="categories">
-                <div class="movie-card" onclick="openPlan('completo')">
-                    <div class="badge">Película Premium</div>
-                    <p class="card-title">Día Completo: Cachagua & Las cujas</p>
-                </div>
-                <div class="movie-card" onclick="openPlan('manana')">
-                    <div class="badge">Cortometraje</div>
-                    <p class="card-title">Solo Mañana: Desayuno & Paseo</p>
-                </div>
-                <div class="movie-card" onclick="openPlan('tarde')">
-                    <div class="badge">Especial</div>
-                    <p class="card-title">Solo Tarde: Sunset & Piscina</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="detail-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modal-image-header"></div>
-            <h1 id="plan-title"></h1>
-            <p id="plan-info" class="meta"></p>
-            <p id="plan-desc"></p>
-            <div id="interactive-section"></div>
-            <button class="btn-confirm" onclick="confirmar()">REPRODUCIR (CONFIRMAR CITA)</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    
+    <button id="main-confirm-btn" class="btn-confirm" onclick="confirmar()">REPRODUCIR</button>
+  </div>
+</div>
