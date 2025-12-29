@@ -1,0 +1,67 @@
+body { 
+    margin: 0; 
+    background: #141414; 
+    color: white; 
+    font-family: 'Arial', sans-serif; 
+    overflow-x: hidden;
+}
+
+.screen { 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    position: relative;
+    z-index: 10;
+}
+
+.hidden { display: none !important; }
+
+.netflix-logo { 
+    color: #E50914; 
+    font-size: 3.5rem; 
+    letter-spacing: -2px; 
+    font-weight: bold;
+}
+
+.profile-card { z-index: 20; cursor: pointer; }
+.profile-card img { 
+    width: 160px; height: 160px; border-radius: 5px; 
+    border: 3px solid transparent; transition: 0.3s; object-fit: cover;
+}
+.profile-card:hover img { border-color: white; transform: scale(1.05); }
+
+.slider { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; }
+.slide { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out; 
+}
+.slide.active { opacity: 0.4; }
+
+.content-overlay { padding: 20px; width: 90%; max-width: 500px; z-index: 20; }
+.movie-card { 
+    background: rgba(30, 30, 30, 0.9); padding: 20px; border-radius: 8px; 
+    margin-bottom: 15px; text-align: left; border-left: 5px solid #E50914; cursor: pointer;
+}
+
+.badge { background: #E50914; font-size: 0.7rem; padding: 3px 7px; border-radius: 3px; font-weight: bold; }
+
+.modal { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; 
+}
+.modal-content { background: #181818; padding: 30px; width: 85%; max-width: 400px; border-radius: 15px; position: relative; }
+
+.column-layout { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.options-btn { 
+    background: #333; color: white; border: none; padding: 10px; 
+    border-radius: 5px; cursor: pointer; text-align: left;
+}
+.options-btn:hover { background: #444; }
+.btn-confirm { 
+    background: white; color: black; border: none; padding: 12px; 
+    width: 100%; font-weight: bold; margin-top: 20px; border-radius: 5px; cursor: pointer;
+}
+.close { position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer; }
